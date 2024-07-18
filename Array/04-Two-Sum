@@ -1,0 +1,36 @@
+#include <vector>
+#include <algorithm>
+#include <unordered_map>
+
+class Solution {
+public:
+    vector<int> twoSum(vector<int>& nums, int target) {
+        // Create a vector of pairs to store original indices along with values
+        vector<pair<int, int>> numsWithIndex;
+
+        // Populate numsWithIndex with values and their original indices
+        for (int i = 0; i < nums.size(); ++i) {
+            numsWithIndex.push_back({nums[i], i});
+        }
+
+        // Sort numsWithIndex based on values
+        sort(numsWithIndex.begin(), numsWithIndex.end());
+
+        int i = 0;
+        int j = numsWithIndex.size() - 1;
+
+        while (i < j) {
+            int sum = numsWithIndex[i].first + numsWithIndex[j].first;
+
+            if (sum == target) {
+                return {numsWithIndex[i].second, numsWithIndex[j].second};
+            } else if (sum < target) {
+                i++;
+            } else {
+                j--;
+            }
+        }
+
+        return {-1, -1};
+    }
+};
